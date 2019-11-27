@@ -1,1 +1,1 @@
-# indico-docker
+# talk-to-indico-api

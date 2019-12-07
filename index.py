@@ -2,6 +2,7 @@ import hashlib
 import hmac
 import time
 import requests
+import json
 
 try:
     from urllib.parse import urlencode
@@ -69,6 +70,25 @@ def getEvent():
         
     print(display)
 
+def writeEvent():
+    eventTitle = input('Title: ') or 'Test'
+    eventStartDate = input('Start date (dd/mm/yyyy): ') or '01/01/2020'
+    eventStartHour = input('Start hour (hh:mm): ') or '16:00'
+    eventEndDate = input('End date (dd/mm/yyyy): ') or '01/01/2020'
+    eventEndHour = input('End hour (hh:mm): ') or '17:00'
+
+    PATH = f'http://localhost:9090/event/create/meeting'
+    data = json.dumps({
+        'event-creation-title': eventTitle,
+        'event-creation-start_dt': [eventStartDate, eventStartHour],
+        'event-creation-end_dt': [eventEndDate, eventEndHour]
+    })
+
+    indico_request = build_indico_request(PATH, PARAMS, API_KEY, SECRET_KEY)
+    r = requests.post(indico_request, data)
+    print(r.status_code)
+    
+
 if __name__ == '__main__':
     option = input(
 '''
@@ -80,4 +100,7 @@ Your choice: ''')
 
     if option == '1':
         getEvent()
+
+    elif option == '2':
+        writeEvent()
 

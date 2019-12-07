@@ -72,7 +72,7 @@ def getEvent():
 if __name__ == '__main__':
     option = input(
 '''
-Enter number of your action:
+Enter number of your action (only meeting supported yet):
   - get an event: 1
   - create event: 2
 

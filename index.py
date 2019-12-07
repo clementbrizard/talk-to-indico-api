@@ -40,7 +40,7 @@ def getEvent():
     event = r.json()
     
     # If event was found
-    if (event['results'][0]):
+    if (event['results']):
         event = event['results'][0]
     
         display = '\n'

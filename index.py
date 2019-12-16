@@ -8,7 +8,7 @@ try:
 except ImportError:
     from urllib import urlencode
 
-API_KEY = 'd672f1fd-d6f3-43cd-8579-0707b41730a2'
+API_KEY = 'eecedc48-34ea-4131-8784-ef9a5a8a0d48'
 SECRET_KEY = ''
 PARAMS = {
     'limit': 123
@@ -33,7 +33,8 @@ def build_indico_request(path, params, api_key=None, secret_key=None, only_publi
 
 def getEvent():
     eventId = input('\nEnter ID of the event you want to get: ')
-    PATH = f'http://localhost:9090/export/event/{eventId}.json?occ=yes&pretty=yes'
+    # PATH = f'http://vps758705.ovh.net:9090/export/event/{eventId}.json?occ=yes&pretty=yes'
+    PATH = 'http://vps758705.ovh.net:9090/export/event/{}.json?occ=yes&pretty=yes'.format(eventId)
 
     indico_request = build_indico_request(PATH, PARAMS, API_KEY, SECRET_KEY)
     r = requests.get(indico_request)
@@ -47,27 +48,33 @@ def getEvent():
 
         if event['title']:
             title = event['title']
-            display += f'Title: {title}\n'
+            display += 'Title: {}\n'.format(title)
 
         if event['startDate']['date']:
             startDate = event['startDate']['date']
-            display += f'Start date: {startDate}\n'
+            display += 'Start date: {}\n'.format(startDate)
 
         if event['endDate']['date']:
             endDate = event['endDate']['date']
-            display += f'End date: {endDate}\n'
+            display += 'End date: {}\n'.format(endDate)
 
         if event['type']:
             eventType = event['type']
-            display += f'Type: {eventType}\n'
+            display += 'Type: {}\n'.format(eventType)
 
         if event['description']:
             description = event['description']
-            display += f'Description: {description}'
+            display += 'Description: {}'.format(description)
+
     else:
         display = 'No event matches the given id.'
         
-    print(display)
+def createEvent():
+    try:
+        import indico
+    except ImportError as e:
+        # Mon erreur (Guillaume)
+        print(e)
 
 if __name__ == '__main__':
     option = input(
@@ -78,6 +85,8 @@ Enter number of your action (only meeting supported yet):
 
 Your choice: ''')
 
-    if option == '1':
+    if option == 1:
         getEvent()
 
+    elif option == 2:
+        createEvent()

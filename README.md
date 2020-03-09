@@ -1,5 +1,7 @@
 # talk-to-indico-api
 
+http://vps758705.ovh.net:9090
+
 Python version used : `Python 3.8.0`.
 
 Set-up : 
